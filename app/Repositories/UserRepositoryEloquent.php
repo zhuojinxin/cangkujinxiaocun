@@ -44,5 +44,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+    public function userinfo(){
+        return 2;
+    }
 }

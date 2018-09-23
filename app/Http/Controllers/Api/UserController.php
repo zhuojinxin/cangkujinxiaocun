@@ -7,6 +7,7 @@
  */
 namespace  App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\userUpdateRequest;
 use App\Repositories\UserRepository;
 
 class UserController extends Controller{
@@ -27,6 +28,13 @@ $this->userRepository=$userRepository;
      */
     public function getinfo(){
 $user=$this->userRepository->find(\Auth::id());
-return $user;
+return $this->dataEncode($user);
     }
-}
+
+
+    public function update(userUpdateRequest $request)
+    {
+        $user=$this->userRepository->update($request->all(),\Auth::id());
+        return $this->dataEncode($user);
+    }
+    }

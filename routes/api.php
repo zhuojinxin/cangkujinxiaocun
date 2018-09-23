@@ -18,4 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::group(['prefix'=>'user','as'=>'user','middleware'=>'auth:api'],function(){
     Route::get('/info','Api\UserController@getinfo');
+    Route::post('/info','Api\UserController@update');
+
 });

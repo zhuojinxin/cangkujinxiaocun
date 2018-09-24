@@ -20,6 +20,8 @@ Route::group(['prefix'=>'user','as'=>'user','middleware'=>'auth:api'],function()
     Route::get('/info','Api\UserController@getinfo');
     Route::post('/info','Api\UserController@update');
     Route::post('/userinfo','Api\UserController@userinfo');
+    Route::post('/changeduty','Api\UserController@changeduty');
+
 
 });
 

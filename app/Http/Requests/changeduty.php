@@ -3,18 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class getuserinfo extends FormRequest
+class changeduty extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
+     * Author: 卓金鑫
      * @return bool
      */
     public function authorize()
     {
-        if(\Auth::user()['duty']){
+        if(\Auth::user()['duty'] == 1){
             return true;
 
         }
@@ -23,17 +22,16 @@ class getuserinfo extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     * Author: 卓金鑫
+     *
      * @return array
      */
     public function rules()
     {
         return [
             //
-            'id'=>[
-                'required',
-                Rule::exists('users','id')
-                ]
+            'id'=>['required'],
+            'duty'=>['required']
+
         ];
     }
 }

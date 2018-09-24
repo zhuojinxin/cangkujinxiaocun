@@ -27,11 +27,15 @@ class GoodController extends Controller{
     {
         $this->middleware('auth:api');
         $this->goodRepository=$goodRepository;
+
     }
 
     public function getinfo(){
-        $res=$this->goodRepository->all();
-        return $this->dataEncode($res);
+        if(\Auth::user()['duty']){
+            $res=$this->goodRepository->all();
+            return $this->dataEncode($res);
+        }
+        return $this->dataEncode('',200,500,'Unauthenticated');
     }
 
     public function create(goodCreateRequest $request)

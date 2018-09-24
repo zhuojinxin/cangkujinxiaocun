@@ -7,6 +7,7 @@
  */
 namespace  App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\changeduty;
 use App\Http\Requests\getuserinfo;
 use App\Http\Requests\userUpdateRequest;
 use App\Repositories\UserRepository;
@@ -58,5 +59,13 @@ return $this->dataEncode(\Auth::user());
         $user=$this->userRepository->find($request->get('id'));
         return $this->dataEncode($user);
     }
+
+    public function changeduty(changeduty $request){
+        $duty=$request->only(['duty']);
+        $userid=$request->get('id');
+        $res=$this->userRepository->update($duty,$userid);
+        return $this->dataEncode($res);
+    }
+
 
     }

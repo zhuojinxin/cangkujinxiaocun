@@ -20,6 +20,13 @@ class Good extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $table='goods';
+    protected $fillable = [
+        'id',
+        'user_id',
+        'name',
+        'spec',
+        'remarks'
+    ];
 
 }

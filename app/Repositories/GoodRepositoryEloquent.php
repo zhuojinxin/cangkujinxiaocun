@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\goodRepository;
+use App\Repositories\GoodRepository;
 use App\Models\Good;
 use App\Validators\GoodValidator;
 
@@ -44,5 +44,18 @@ class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function creeatgood($request,$user_id){
+        $request['user_id']=$user_id;
+        if(array_key_exists('id',$request)){
+            $res=$this->update($request,$request['id']);
+        }
+        else
+            {
+                $res=$this->create($request);
+            }
+return $res;
+
+    }
+
 }

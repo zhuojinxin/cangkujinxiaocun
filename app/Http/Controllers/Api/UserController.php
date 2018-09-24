@@ -7,6 +7,7 @@
  */
 namespace  App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\getuserinfo;
 use App\Http\Requests\userUpdateRequest;
 use App\Repositories\UserRepository;
 
@@ -33,8 +34,7 @@ $this->userRepository=$userRepository;
      * @param mixed $userRepository
      */
     public function getinfo(){
-$user=$this->userRepository->find(\Auth::id());
-return $this->dataEncode($user);
+return $this->dataEncode(\Auth::user());
     }
 
     /**
@@ -45,6 +45,17 @@ return $this->dataEncode($user);
     public function update(userUpdateRequest $request)
     {
         $user=$this->userRepository->update($request->all(),\Auth::id());
+        return $this->dataEncode($user);
+    }
+
+    /**
+     * 获取指定用户信息
+     * @param getuserinfo $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userinfo(getuserinfo $request)
+    {
+        $user=$this->userRepository->find($request->get('id'));
         return $this->dataEncode($user);
     }
 

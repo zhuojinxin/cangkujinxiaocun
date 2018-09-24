@@ -9,7 +9,8 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface GoodRepository extends RepositoryInterface
+interface GoodRepository extends BaseRepositoryInterface
 {
     //
+    public function creeatgood($request,$user_id);
 }

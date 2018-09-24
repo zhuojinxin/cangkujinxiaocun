@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class goodCreateRequest extends FormRequest
+class getuserinfo extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,11 @@ class goodCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if(\Auth::user()['duty']){
+            return true;
+
+        }
+        return false;
     }
 
     /**
@@ -25,6 +30,10 @@ class goodCreateRequest extends FormRequest
     {
         return [
             //
+            'id'=>[
+                'required',
+                Rule::exists('users','id')
+                ]
         ];
     }
 }

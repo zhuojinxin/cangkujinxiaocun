@@ -47,4 +47,13 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function userinfo(){
         return 2;
     }
+    public function updateinfo(array $attributes, $id){
+        $keys = array_keys($attributes);
+        $index = array_search('duty', $keys);
+        if($index !== FALSE){
+            array_splice($attributes, $index, 1);
+        }
+        $res=$this->update($attributes,$id);
+        return $res;
+    }
 }

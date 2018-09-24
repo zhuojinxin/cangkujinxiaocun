@@ -14,4 +14,5 @@ interface UserRepository extends BaseRepositoryInterface
     //
 
     public function userinfo();
+    public function updateinfo(array $attributes, $id);
 }

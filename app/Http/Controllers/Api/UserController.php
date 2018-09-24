@@ -44,7 +44,7 @@ return $this->dataEncode(\Auth::user());
      */
     public function update(userUpdateRequest $request)
     {
-        $user=$this->userRepository->update($request->all(),\Auth::id());
+        $user=$this->userRepository->updateinfo($request->all(),\Auth::id());
         return $this->dataEncode($user);
     }
 

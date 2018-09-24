@@ -4,16 +4,16 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\GoodRepository;
-use App\Models\Good;
-use App\Validators\GoodValidator;
+use App\Repositories\warehouseRepository;
+use App\Models\Warehouse;
+use App\Validators\WarehouseValidator;
 
 /**
- * Class GoodRepositoryEloquent.
+ * Class WarehouseRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
+class WarehouseRepositoryEloquent extends BaseRepository implements WarehouseRepository
 {
     /**
      * Specify Model class name
@@ -22,7 +22,7 @@ class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
      */
     public function model()
     {
-        return Good::class;
+        return Warehouse::class;
     }
 
     /**
@@ -33,7 +33,7 @@ class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
     public function validator()
     {
 
-        return GoodValidator::class;
+        return WarehouseValidator::class;
     }
 
 
@@ -45,17 +45,17 @@ class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function createwarehouse($request,$user_id){
-        $request['user_id']=$user_id;
+    public function creeatwarehouse($request){
+
         if(array_key_exists('id',$request)){
             $res=$this->update($request,$request['id']);
         }
         else
-            {
-                $res=$this->create($request);
-            }
-return $res;
+        {
+            $res=$this->create($request);
+        }
+        return $res;
 
     }
-
+    
 }

@@ -29,3 +29,8 @@ Route::group(['prefix'=>'goods','as'=>'goods','middleware'=>'auth:api'],function
     Route::get('/info','Api\GoodController@getinfo');
     Route::post('/info','Api\GoodController@create');
 });
+
+Route::group(['prefix'=>'erp','as'=>'erp','middleware'=>'auth:api'],function(){
+    Route::get('/info','Api\WarehouseController@getinfo');
+    Route::post('/info','Api\WarehouseController@create');
+});

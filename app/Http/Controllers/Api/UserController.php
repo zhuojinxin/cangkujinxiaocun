@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\userUpdateRequest;
 use App\Repositories\UserRepository;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers\Api
+ * Author: 卓金鑫
+ */
 class UserController extends Controller{
     protected $userRepository;
 
@@ -24,6 +29,7 @@ $this->userRepository=$userRepository;
     }
 
     /**
+     *获取用户信息
      * @param mixed $userRepository
      */
     public function getinfo(){
@@ -31,10 +37,15 @@ $user=$this->userRepository->find(\Auth::id());
 return $this->dataEncode($user);
     }
 
-
+    /**
+     * 更新用户信息
+     * @param userUpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(userUpdateRequest $request)
     {
         $user=$this->userRepository->update($request->all(),\Auth::id());
         return $this->dataEncode($user);
     }
+
     }

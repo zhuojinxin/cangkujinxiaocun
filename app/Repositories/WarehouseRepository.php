@@ -9,7 +9,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface WarehouseRepository extends RepositoryInterface
+interface WarehouseRepository extends BaseRepositoryInterface
 {
     //
     public function creeatwarehouse($request);

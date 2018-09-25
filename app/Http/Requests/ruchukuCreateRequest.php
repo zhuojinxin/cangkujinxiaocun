@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ruchukuCreateRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class ruchukuCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,18 @@ class ruchukuCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id'=>[
+                'required',
+                Rule::exists('users','id')
+            ],
+            'good_id'=>[
+                'required',
+                Rule::exists('goods','id')
+            ],
+            'warehouse_id'=>[
+                'required',
+                Rule::exists('warehouses','id')
+            ],
         ];
     }
 }

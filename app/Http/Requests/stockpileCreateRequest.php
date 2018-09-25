@@ -24,7 +24,7 @@ class stockpileCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
         ];
     }
 }

@@ -20,6 +20,18 @@ class Stockpile extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $table='stockpiles';
+
+    protected $fillable = [
+        'good_id',
+        'user_id',
+        'warehouse_id',
+        'amount'
+    ];
+
+
+
+
+
 
 }

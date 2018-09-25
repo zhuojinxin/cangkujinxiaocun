@@ -16,10 +16,16 @@ class Ruchuku extends Model implements Transformable
     use TransformableTrait;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * @var string
      */
-    protected $fillable = [];
+    protected $table='ruchukus';
 
+    protected $fillable = [
+        'name',
+        'good_id',
+        'warehouse_id',
+        'user_id',
+        'amount',
+        'remarks'
+    ];
 }

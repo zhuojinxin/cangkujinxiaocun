@@ -9,7 +9,14 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface RuchukuRepository extends RepositoryInterface
+interface RuchukuRepository extends BaseRepositoryInterface
 {
     //
+    /**
+     * 入库操作
+     * author：卓金鑫
+     * @param array $attributes
+     * @return mixed
+     */
+    public function ruku(array $attributes);
 }

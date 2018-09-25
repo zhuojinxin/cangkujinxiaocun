@@ -24,6 +24,7 @@ class Good extends Model implements Transformable
     protected $fillable = [
         'id',
         'user_id',
+        'price',
         'name',
         'spec',
         'remarks'

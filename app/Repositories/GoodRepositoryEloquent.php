@@ -45,7 +45,7 @@ class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function createwarehouse($request,$user_id){
+    public function creeatgood($request,$user_id){
         $request['user_id']=$user_id;
         if(array_key_exists('id',$request)){
             $res=$this->update($request,$request['id']);

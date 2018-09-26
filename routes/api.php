@@ -34,7 +34,7 @@ Route::group(['prefix'=>'erp','as'=>'erp','middleware'=>'auth:api'],function(){
     Route::get('/info','Api\WarehouseController@getinfo');
     Route::post('/info','Api\WarehouseController@create');
     Route::get('/stock','Api\StockpileController@getinfo');
-    Route::get('/ruku','Api\RuchukuController@ruku');
+    Route::post('/ruku','Api\RuchukuController@ruku');
 
 
 });

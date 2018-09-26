@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Criteria\HasFieldCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\GoodRepository;
@@ -52,6 +53,7 @@ class GoodRepositoryEloquent extends BaseRepository implements GoodRepository
         }
         else
             {
+
                 $res=$this->create($request);
             }
 return $res;

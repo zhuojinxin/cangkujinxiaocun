@@ -54,6 +54,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             array_splice($attributes, $index, 1);
         }
         $res=$this->update($attributes,$id);
+
         return $res;
     }
 }

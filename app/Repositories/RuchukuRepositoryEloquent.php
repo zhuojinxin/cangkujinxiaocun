@@ -62,7 +62,9 @@ class RuchukuRepositoryEloquent extends BaseRepository implements RuchukuReposit
               $attributes['name']='receive';
            $res2=$this->create($attributes);
               \DB::commit();
-              return array($res,$res2);
+              $gooddetail=app(GoodRepository::class)->find($attributes['good_id']);
+
+              return array($res,$res2,$gooddetail);
           } catch (\Exception $exception) {
               \DB::rollBack();
               return $exception;
@@ -71,8 +73,22 @@ class RuchukuRepositoryEloquent extends BaseRepository implements RuchukuReposit
 
         else
             {
-                app(StockpileRepository::class)->create($attributes);
+                \DB::beginTransaction();
+                try{
+                    $newamount=$good->amount+$attributes['amount'];
+                    $res=app(StockpileRepository::class)->create($attributes);
+                    $attributes['name']='receive';
+                    $res2=$this->create($attributes);
+                    \DB::commit();
+                    $gooddetail=app(GoodRepository::class)->find($attributes['good_id']);
+
+                    return array($res,$res2,$gooddetail);
+                } catch (\Exception $exception) {
+                    \DB::rollBack();
+                    return $exception;
+                }
+
         }
-        return $good;
+
     }
 }

@@ -47,12 +47,32 @@ class RuchukuRepositoryEloquent extends BaseRepository implements RuchukuReposit
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function ruku(array $attributes){
+    public function ruku(array $attributes,$user_id){
+        $attributes['user_id']=$user_id;
         $good=app(StockpileRepository::class)
             ->pushCriteria(new HasFieldCriteria('good_id',$attributes['good_id']))
             ->first();
-if($good){
+        if($good){
+          \DB::beginTransaction();
+          try{
+              $newamount=$good->amount+$attributes['amount'];
+              $res=app(StockpileRepository::class)->update([
+                  'amount' => $newamount
+              ],$good->getKey());
+              $attributes['name']='receive';
+           $res2=$this->create($attributes);
+              \DB::commit();
+              return array($res,$res2);
+          } catch (\Exception $exception) {
+              \DB::rollBack();
+              return $exception;
+          }
+        }
 
-}
+        else
+            {
+                app(StockpileRepository::class)->create($attributes);
+        }
+        return $good;
     }
 }

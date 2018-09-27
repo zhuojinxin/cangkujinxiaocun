@@ -25,10 +25,7 @@ class ruchukuCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'=>[
-                'required',
-                Rule::exists('users','id')
-            ],
+
             'good_id'=>[
                 'required',
                 Rule::exists('goods','id')
@@ -37,6 +34,7 @@ class ruchukuCreateRequest extends FormRequest
                 'required',
                 Rule::exists('warehouses','id')
             ],
+            'amount'=>['required']
         ];
     }
 }

@@ -40,7 +40,7 @@ class RuchukuController extends Controller{
 
     public function ruku(ruchukuCreateRequest $request){
         if(\Auth::user()['duty']){
-            $res=$this->ruchukuRepository->ruku($request->all());
+            $res=$this->ruchukuRepository->ruku($request->all(),\Auth::id());
             return $this->dataEncode($res);
         }
         return $this->dataEncode('',200,500,'Unauthenticated');

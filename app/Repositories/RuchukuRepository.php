@@ -18,5 +18,5 @@ interface RuchukuRepository extends BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function ruku(array $attributes);
+    public function ruku(array $attributes,$user_id);
 }

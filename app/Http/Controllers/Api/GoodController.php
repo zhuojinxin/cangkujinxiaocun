@@ -8,6 +8,7 @@
 namespace  App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\goodCreateRequest;
+use App\Models\Good;
 use App\Repositories\GoodRepository;
 use App\Repositories\UserRepository;
 
@@ -32,8 +33,8 @@ class GoodController extends Controller{
 
     public function getinfo(){
         if(\Auth::user()['duty']){
-            $res=$this->goodRepository->all();
-            return $this->dataEncode($res);
+
+            return $this->dataEncode(Good::getAllItem());
         }
         return $this->dataEncode('',200,500,'Unauthenticated');
     }

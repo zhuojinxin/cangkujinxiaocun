@@ -29,6 +29,19 @@ class Stockpile extends Model implements Transformable
         'amount'
     ];
 
+    public static function getAllItem(){
+        return Stockpile::select(
+            'goods.name as good_name',
+            'users.name as user_name',
+            'warehouses.name as warehouses_name',
+            'stockpiles.*'
+        )
+            ->join('warehouses','stockpiles.warehouse_id','=','warehouses.id')
+            ->join('users','stockpiles.user_id','=','users.id')
+            ->join('goods','stockpiles.good_id','=','goods.id')
+            ->get();
+    }
+
 
 
 

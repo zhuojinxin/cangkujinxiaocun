@@ -7,6 +7,7 @@
  */
 namespace  App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Models\Stockpile;
 use App\Repositories\StockpileRepository;
 use App\Repositories\UserRepository;
 
@@ -30,8 +31,8 @@ class StockpileController extends Controller{
 
     public function getinfo(){
         if(\Auth::user()['duty']){
-            $res=$this->stockpileRepository->all();
-            return $this->dataEncode($res);
+
+            return $this->dataEncode(Stockpile::getAllItem());
         }
         return $this->dataEncode('',200,500,'Unauthenticated');
     }

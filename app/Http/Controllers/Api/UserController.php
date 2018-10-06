@@ -66,6 +66,10 @@ return $this->dataEncode(\Auth::user());
         $res=$this->userRepository->update($duty,$userid);
         return $this->dataEncode($res);
     }
+    public function getAll(){
+        $user=$this->userRepository->all();
+        return $this->dataEncode($user);
+    }
 
 
     }

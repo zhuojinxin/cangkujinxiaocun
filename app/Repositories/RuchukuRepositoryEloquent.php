@@ -52,19 +52,18 @@ class RuchukuRepositoryEloquent extends BaseRepository implements RuchukuReposit
         $good=app(StockpileRepository::class)
             ->pushCriteria(new HasFieldCriteria('good_id',$attributes['good_id']))
             ->first();
+
         if($good){
           \DB::beginTransaction();
           try{
               $newamount=$good->amount+$attributes['amount'];
-              $res=app(StockpileRepository::class)->update([
+              app(StockpileRepository::class)->update([
                   'amount' => $newamount
               ],$good->getKey());
               $attributes['name']='receive';
            $res2=$this->create($attributes);
               \DB::commit();
-              $gooddetail=app(GoodRepository::class)->find($attributes['good_id']);
-
-              return array($res,$res2,$gooddetail);
+              return $res2;
           } catch (\Exception $exception) {
               \DB::rollBack();
               return $exception;
@@ -75,7 +74,7 @@ class RuchukuRepositoryEloquent extends BaseRepository implements RuchukuReposit
             {
                 \DB::beginTransaction();
                 try{
-                    $newamount=$good->amount+$attributes['amount'];
+
                     $res=app(StockpileRepository::class)->create($attributes);
                     $attributes['name']='receive';
                     $res2=$this->create($attributes);
@@ -91,4 +90,45 @@ class RuchukuRepositoryEloquent extends BaseRepository implements RuchukuReposit
         }
 
     }
+
+
+    public function chuku(array $attributes,$user_id){
+        $attributes['user_id']=$user_id;
+        $good=app(StockpileRepository::class)
+            ->pushCriteria(new HasFieldCriteria('good_id',$attributes['good_id']))
+            ->first();
+        if($good){
+            if($good->amount>=$attributes['amount']){
+                \DB::beginTransaction();
+                try{
+                    $newamount=$good->amount-$attributes['amount'];
+                    $res=app(StockpileRepository::class)->update([
+                        'amount' => $newamount
+                    ],$good->getKey());
+                    $attributes['name']='send';
+                    $res2=$this->create($attributes);
+                    \DB::commit();
+                    $gooddetail=app(GoodRepository::class)->find($attributes['good_id']);
+
+                    return array($res,$res2,$gooddetail);
+                } catch (\Exception $exception) {
+                    \DB::rollBack();
+                    return $exception;
+                }
+            }
+            else{
+                return 'error,库存不足';
+            }
+
+        }
+
+        else
+        {
+            return "error商品不存在";
+   }
+
+
+
+    }
+
 }

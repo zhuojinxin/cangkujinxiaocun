@@ -8,6 +8,7 @@
 namespace  App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ruchukuCreateRequest;
+use App\Models\Ruchuku;
 use App\Repositories\RuchukuRepository;
 use App\Repositories\StockpileRepository;
 use App\Repositories\UserRepository;
@@ -42,6 +43,21 @@ class RuchukuController extends Controller{
         if(\Auth::user()['duty']){
             $res=$this->ruchukuRepository->ruku($request->all(),\Auth::id());
             return $this->dataEncode($res);
+        }
+        return $this->dataEncode('',200,500,'Unauthenticated');
+    }
+
+    public function chuku(ruchukuCreateRequest $request){
+        if(\Auth::user()['duty']){
+            $res=$this->ruchukuRepository->chuku($request->all(),\Auth::id());
+            return $this->dataEncode($res);
+        }
+        return $this->dataEncode('',200,500,'Unauthenticated');
+    }
+    public function AlljiLu(){
+        if(\Auth::user()['duty']){
+            //$res=$this->ruchukuRepository->all();
+            return Ruchuku::getAllItem();
         }
         return $this->dataEncode('',200,500,'Unauthenticated');
     }

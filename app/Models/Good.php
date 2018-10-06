@@ -30,4 +30,13 @@ class Good extends Model implements Transformable
         'remarks'
     ];
 
+    public static function getAllItem(){
+        return Good::select(
+            'users.name as user_name',
+            'goods.*'
+        )
+            ->join('users','goods.user_id','=','users.id')
+            ->get();
+    }
+
 }

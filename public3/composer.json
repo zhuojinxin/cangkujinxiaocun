@@ -1,0 +1,27 @@
+{
+    "name": "lndj/lcrawl",
+    "type": "library",
+    "description": "一只优雅的正方教务系统爬虫。",
+    "keywords": ["wechat","正方","模拟登陆","教务系统"],
+    "homepage": "http://lcrawl.lzjtuhand.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ning Luo",
+            "email": "luoning@luoning.me",
+            "homepage":"http://www.luoning.me"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "symfony/dom-crawler": "^3.0",
+        "symfony/css-selector": "^3.0",
+        "doctrine/cache": "^1.6"
+    },
+    "autoload": {
+    	"psr-4": {
+            "Lndj\\": "src/"
+        }
+    }
+}

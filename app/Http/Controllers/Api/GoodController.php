@@ -44,5 +44,15 @@ class GoodController extends Controller{
         $res=$this->goodRepository->creeatgood($request->all(),\Auth::id());
         return $this->dataEncode($res);
     }
+    public function findgood($id)
+    {
+        $res=$this->goodRepository->find($id);
+        return $this->dataEncode($res);
+    }
+
+    public function del($id){
+        $res=$this->goodRepository->delete($id);
+        return $this->dataEncode($res);
+    }
 
     }

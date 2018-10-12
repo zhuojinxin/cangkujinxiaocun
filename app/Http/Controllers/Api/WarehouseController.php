@@ -43,4 +43,9 @@ class WarehouseController extends Controller{
         return $this->dataEncode($res);
     }
 
+    public function del($id){
+        $res=$this->warehouseRepository->delete($id);
+        return $this->dataEncode($res);
+    }
+
     }

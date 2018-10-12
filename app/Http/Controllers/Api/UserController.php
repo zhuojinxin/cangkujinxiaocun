@@ -71,5 +71,10 @@ return $this->dataEncode(\Auth::user());
         return $this->dataEncode($user);
     }
 
+    public function del($id){
+        $res=$this->userRepository->delete($id);
+        return $this->dataEncode($res);
+    }
+
 
     }

@@ -1,41 +1,43 @@
-d<?php
+<?php
 
 namespace App\Http\Controllers;
 
+use App\Models\Good;
+use App\Repositories\GoodRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\GoodCreateRequest;
-use App\Http\Requests\GoodUpdateRequest;
-use App\Repositories\GoodRepository;
-use App\Validators\GoodValidator;
+use App\Http\Requests\CodeCreateRequest;
+use App\Http\Requests\CodeUpdateRequest;
+use App\Repositories\CodeRepository;
+use App\Validators\CodeValidator;
 
 /**
- * Class GoodsController.
+ * Class CodesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class GoodsController extends Controller
+class CodesController extends Controller
 {
     /**
-     * @var GoodRepository
+     * @var CodeRepository
      */
     protected $repository;
 
     /**
-     * @var GoodValidator
+     * @var CodeValidator
      */
     protected $validator;
 
     /**
-     * GoodsController constructor.
+     * CodesController constructor.
      *
-     * @param GoodRepository $repository
-     * @param GoodValidator $validator
+     * @param CodeRepository $repository
+     * @param CodeValidator $validator
      */
-    public function __construct(GoodRepository $repository, GoodValidator $validator)
+    public function __construct(CodeRepository $repository, CodeValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +51,38 @@ class GoodsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $goods = $this->repository->all();
+        $codes = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $goods,
+                'data' => $codes,
             ]);
         }
 
-        return view('goods.index', compact('goods'));
+        return view('codes.index', compact('codes'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  GoodCreateRequest $request
+     * @param  CodeCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(GoodCreateRequest $request)
+    public function store(CodeCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $good = $this->repository->create($request->all());
+            $code = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Good created.',
-                'data'    => $good->toArray(),
+                'message' => 'Code created.',
+                'data'    => $code->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +112,16 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        $good = $this->repository->find($id);
+        $code = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $good,
+                'data' => $code,
             ]);
         }
 
-        return view('goods.show', compact('good'));
+        return view('codes.show', compact('code'));
     }
 
     /**
@@ -131,32 +133,32 @@ class GoodsController extends Controller
      */
     public function edit($id)
     {
-        $good = $this->repository->find($id);
+        $code = $this->repository->find($id);
 
-        return view('goods.edit', compact('good'));
+        return view('codes.edit', compact('code'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  GoodUpdateRequest $request
+     * @param  CodeUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(GoodUpdateRequest $request, $id)
+    public function update(CodeUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $good = $this->repository->update($request->all(), $id);
+            $code = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Good updated.',
-                'data'    => $good->toArray(),
+                'message' => 'Code updated.',
+                'data'    => $code->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +196,15 @@ class GoodsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Good deleted.',
+                'message' => 'Code deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Good deleted.');
+        return redirect()->back()->with('message', 'Code deleted.');
+    }
+    public  function orcode($id){
+        return view('qrcode',['id'=>$id]);
+
     }
 }

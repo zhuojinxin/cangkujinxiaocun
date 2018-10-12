@@ -57,9 +57,12 @@ class RuchukuController extends Controller{
     public function AlljiLu(){
         if(\Auth::user()['duty']){
             //$res=$this->ruchukuRepository->all();
-            return Ruchuku::getAllItem();
+            return $this->dataEncode(Ruchuku::getAllItem());
         }
         return $this->dataEncode('',200,500,'Unauthenticated');
+    }
+    public  function orcode($id){
+        return view('qrcode',['id'=>$id]);
     }
 
     }
